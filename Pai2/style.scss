@@ -1,0 +1,220 @@
+$breakpoints: ( // zdefiniowanie mapy z rozmiarami
+    small: (min-width: 460px) and (max-width: 1023px),
+    large: (min-width: 1024px)
+);
+
+@mixin mq($breakpoint) {    //zdefiniowanie domieszki przyjmującej param
+    $size: map-get($breakpoints, $breakpoint); //użycie map-get
+    @if($size) {    //jeżeli size istnieje
+        @media #{$size} {   //ustaw mu media
+            @content;       // i wpisz sobie kontent
+        }
+    } @else {
+        @error '#{$breakpoint} - Nie znam tej wielkości!'
+    }
+};
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  font-family: Verdana, Tahoma, sans-serif;
+  font-size: 16px;
+}
+
+.header {
+    position: relative;
+    height: 20vh;
+    display: flex;
+
+    @include mq(small) {
+        margin-bottom: 50px;
+        img {
+            padding: 15px 40px;
+        }
+        .title {
+            display: none;
+        }
+        .navigation {
+            display: none;
+        }
+        .burger {
+            position: absolute;
+            top: 50%;
+            right: 10%;
+            transform: translate(-10%, -50%);
+            font-size: 60px;
+        }
+    }
+
+    @include mq(large) {
+        align-items: center;
+
+        img {
+            padding: 40px;
+            padding-left: 40px;
+        }
+
+        .title {
+            margin-left: 20px;
+            letter-spacing: 2px;
+        }
+
+        .navigation {
+            display: flex;
+            align-self: start;
+            flex-grow: 2;
+            justify-content:right ;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            .nav-item {
+                margin-top: 20px;
+                margin-right: 10px;
+                color: white;
+                background-color: rgb(128, 121, 121);
+                border: 2px solid rgb(49, 48, 48);
+                border-radius: 10px;
+                cursor: pointer;
+                transition: .3s;
+                &:hover {
+                    background-color: rgb(224, 207, 207);
+                    border: 2px solid rgb(107, 96, 96);
+                }
+                a {
+                    color: white;
+                    display: block;
+                    width: 100px;
+                    text-align: center;
+                    padding: 14px 16px;
+                    text-decoration: none;
+                    font-weight: bold;
+                    letter-spacing: 1px;
+                    &:hover {
+                        color: rgb(37, 36, 36);
+                    }
+                }
+            }
+        }
+
+        .burger {
+            display: none;
+        }
+    }
+}
+
+.main {
+    display: flex;
+    
+    @include mq(small) {
+        flex-direction: column;
+        .inside {
+            margin-bottom: 5vh;
+            margin-left: 5%;
+            margin-right: 5%;
+            font-size: 22px;
+            border: 3px solid rgb(49, 48, 48);
+        }
+
+        .title-inside {
+            position: relative;
+            left: 50%;
+            width: 50%;
+            height: 40%;
+            padding: 20px;
+            margin-bottom: 20px;
+            font-size: 30px;
+            font-weight: bold;
+            text-align: center;
+            letter-spacing: 1px;
+            background-color: rgb(243, 177, 53);
+            color: rgb(37, 36, 36);
+            flex-direction: column;
+            justify-content: center;
+            border-bottom: 3px solid rgb(49, 48, 48);
+            border-left: 3px solid rgb(49, 48, 48);
+        }
+
+        .content-inside {
+            padding: 30px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+    }
+    
+    @include mq(large) {
+        display: flex;
+
+        .inside {
+            flex-wrap: wrap;
+            margin-bottom: 5vh;
+            margin: 2%;
+            font-size: 20px;
+            border: 3px solid rgb(49, 48, 48);
+        }
+
+        .title-inside {
+            position: relative;
+            left: 50%;
+            width: 50%;
+            height: 12%;
+            padding: 10px;
+            font-size: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-weight: bold;
+            letter-spacing: 1px;
+            background-color: rgb(243, 177, 53);
+            color: rgb(37, 36, 36);
+            border-bottom: 3px solid rgb(49, 48, 48);
+            border-left: 3px solid rgb(49, 48, 48);
+        }
+
+        .content-inside {
+            padding: 30px;
+            text-align: justify;
+            text-justify: inter-word;
+        }
+    }
+}
+
+.footer {
+    border-top: 3px solid rgb(49, 48, 48);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px;
+    background-color: rgb(243, 177, 53);
+
+    @include mq(small) {
+        .ftitle {
+            margin-top: 40px;
+        }
+
+        .name_surname {
+            margin-bottom: 40px;
+            font-weight: bold;
+        }
+    }
+
+    @include mq(large) {
+        font-size: 25px;
+        width: 100%;
+        bottom: 0;
+        .ftitle {
+            margin-top: 20px;
+        }
+
+        .name_surname {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+    }
+}
